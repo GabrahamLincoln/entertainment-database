@@ -8,17 +8,17 @@
 </head>
 <body>
 	<form action="admin_login_verify.php" method="post">
-		<h2>Enter your admin username and password</h2>
+		<h2>Admin Login</h2>
 		<?php if (isset($_GET['error'])) { ?>
 			<p class="error"><?php echo $_GET['error']; ?></p>
 		<?php } ?>
-		<label>Admin User Name</label>	
-		<input type="text" name="uname" placeholder="Enter admin user uame"><br>
+		<label>Username</label>	
+		<input type="text" name="uname" placeholder="Enter username"><br>
 
-		<label>Admin Password</label>	
-		<input type="password" name="password" placeholder="Enter admin password"><br>
+		<label>Password</label>	
+		<input type="password" name="password" placeholder="Enter password"><br>
 
-		<button type="submit">Admin Login</button>
+		<button type="submit">Login</button>
 	</form>
 </body>
 </html>

@@ -39,12 +39,12 @@
 		//ask for Num_Reviews = 0 (as it is a new user)
 		//ask for Rating = 0 (as it is a new user)
 		echo "<form action = \"\" method = \"post\">";
-		echo "<label>New Username</label>";
-		echo "<input type=\"text\" name=\"newUsername\" placeholder=\"Enter username of the new user\"><br>";
-		echo "<label>New Password</label>";
-		echo "<input type=\"password\" name=\"newPassword\" placeholder=\"Enter password of the new user\"><br>";
+		echo "<label>Username</label>";
+		echo "<input type=\"text\" name=\"newUsername\" placeholder=\"Enter username\"><br>";
+		echo "<label>Password</label>";
+		echo "<input type=\"password\" name=\"newPassword\" placeholder=\"Enter password\"><br>";
 
-		echo "<button type = \"submit\"> Add Data into Database</button>";
+		echo "<button type = \"submit\">Register</button>";
 		echo "</form>";
 
 		if ((isset($_POST['newUsername'])) && (isset($_POST['newPassword'])) )
@@ -105,7 +105,7 @@
 				catch (Exception $e)
 				{
 					echo "<p class = \"error\">";
-					echo "Error, Username already exists, try a different one</p>";
+					echo "Username already exists. Please try a different one.</p>";
 					//header("Location: admin_editUserInfo.php");
 				}	
 			}
@@ -115,7 +115,7 @@
 
 
 	<br><br>
-	<a href="index.php">Link to Main Page</a>
+	<a href="index.php">Home Page</a>
 	<?php mysqli_close($connection); ?>		
 	<br><br>
 	<br><br>
