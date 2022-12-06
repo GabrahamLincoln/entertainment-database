@@ -64,11 +64,13 @@ if (isset($_POST['uname']) && isset($_POST['password']))
             //move to next page and pass the username of the admin to the next page
             //https://www.sitepoint.com/community/t/passing-variables-using-header-location/4929
             header("Location: user_profile.php?username=".$uname."");
+            exit();
         }
         else
         {
             //if here, username not in database or not matched
             header("Location: user_login.php?error=Access Denied");
+            exit();
         }
 
 	}

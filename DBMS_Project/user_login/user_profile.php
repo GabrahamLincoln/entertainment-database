@@ -1,11 +1,5 @@
 <?php
 session_start();
-if (isset($_GET['username'])) { 
-    $username = $_GET['username'];
-} else {
-    $username = ' ';
-}
-$_SESSION['username'] = $username;
 ?>
 		
 
@@ -75,11 +69,14 @@ $_SESSION['username'] = $username;
 
     <div class = "search_bar">
         <form action="search_results.php" method="post">
-            <!-- <input type="hidden" name="varname" value="var_value"> -->
 		    <input type="text" name="search" placeholder="Search the database">
         </form>
     </div>
 
-    <h2><?php echo $username;?>'s Profile</h2>
+    <?php
+        $uname = $_SESSION['username']
+    ?>
+    
+    <h2><?php echo $uname;?>'s Profile</h2>
 </body>
 </html>

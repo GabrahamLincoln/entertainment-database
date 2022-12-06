@@ -1,10 +1,4 @@
 <?php
-// session_start();
-// if (isset($_GET['ename'])) { 
-//     $ename = $_GET['ename'];
-// } else {
-//     $ename = ' ';
-// }
 session_start();
 $eid = $_GET['eid'];
 
@@ -14,7 +8,6 @@ if (mysqli_connect_errno()) {
 	echo "Failed to connect: " . mysqli_connect_error();
 }
 ?>
-		
 
 <!DOCTYPE html>
 <style>
@@ -81,6 +74,38 @@ if (mysqli_connect_errno()) {
         color: rgb(255, 255, 255);
         background: rgb(30, 30, 30);
     }
+
+    .profile_button{
+        cursor: pointer;
+        float: right;
+
+        border: none;
+        border-radius: 8px;
+
+        background: rgba(55, 210, 160);
+        box-shadow: 2px 2px 7px rgba(55, 210, 161, 0.437);
+        color: rgba(255, 255, 255, 0.75);
+
+        transition: all 1s;
+        margin-left: 10px;
+    }
+
+    .profile_button:hover{
+        opacity: .7;
+        color: rgb(255, 255, 255);
+        box-shadow: 2px 2px 7px rgba(55, 210, 160);
+    }
+
+    .add_review {
+        display: inline-block;
+        float: left;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+
+        background: rgb(70, 70, 70);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2)
+    }
 </style>
 
 <html>
@@ -94,9 +119,14 @@ if (mysqli_connect_errno()) {
 <body>
     <img src="../logo.png" alt="Logo", style="height:100px; width:350px; border-radius:5px">
 
+    <?php $username = $_SESSION['username'];?>
+
+    <form class="profile_button" action="user_profile.php?username=<?php$username?>" method="post">
+        <input class="button_text" type="submit" name="b1" value="Profile">
+    </form>
+
     <div class = "search_bar">
         <form action="search_results.php" method="post">
-            <!-- <input type="hidden" name="varname" value="var_value"> -->
 		    <input type="text" name="search" placeholder="Search the database">
         </form>
     </div>
@@ -112,6 +142,7 @@ if (mysqli_connect_errno()) {
 
     <div class = "entertainment_info">
         <h2 style="text-align: left; line-height: 25px">Information</h2>
+
         <?php
         // Entertainment Columns: name, type, rating, date, prod_pid (producer id), dir_ssn (director ssn)
         $genre = $_SESSION['row']['type'];
@@ -124,44 +155,23 @@ if (mysqli_connect_errno()) {
         echo "<br>";
         echo "Production Date: $date";
         echo "<br>";
-        echo "Rating: $rating";
+        echo "Rating: $rating/5";
         echo "<br>";
-
-		// //echo "Connection made to database ";
-		// //$result = mysqli_query($connection, "SELECT E.eid, E.name AS Ename, E.type, E.rating, E.date, PC.name AS PC_name, PC.address,D.ssn, D.fname, D.lname, AI.city_name AS city, AI.theatre_name as Theatre_name, AO.url AS url, P.name AS platform FROM entertainment AS E, productioncompany AS PC, director as D, available_in AS AI, available_on AS AO, Platform as P WHERE E.prod_pid = PC.pid AND E.dir_ssn = D.ssn AND AI.eid = E.eid AND AO.eid = E.eid AND P.url = AO.url");
-        // $result = mysqli_query($connection, "SELECT E.eid, E.name AS Ename, E.type, E.rating, E.date, PC.name AS PC_name, PC.address,D.ssn, D.fname, D.lname FROM entertainment AS E, productioncompany AS PC, director as D WHERE E.prod_pid = PC.pid AND E.dir_ssn = D.ssn ");
-		// echo "<table style = \"background: #D0E4F5;border: 1px solid #AAAAAA;
-		// padding: 3px 2px;font-size: 20px;\" border = '1'>
-		// 	<tr>
-		// 	<th>EID</th>
-		// 	<th>Name</th>
-		// 	<th>Type</th>
-		// 	<th>Rating</th>
-		// 	<th>Release Date</th>
-		// 	<th>Production Company, Location</th>";
-            
-        //     //echo"
-		// 	//<th>Director Name</th>
-        //    // <th>Available ON</th>
-        //    // <th>Available IN</th>";
-		// 	echo"</tr>";
-		// while($row = mysqli_fetch_array($result))
-		// {
-		// 	echo "<tr>";
-		// 	echo "<td>" . $row['eid'] . "</td>";
-		// 	echo "<td>" . $row['Ename'] . "</td>";
-		// 	echo "<td>" . $row['type'] . "</td>";
-		// 	echo "<td>" . $row['rating'] . "</td>";
-		// 	echo "<td>" . $row['date'] . "</td>";
-		//    	echo "<td>" . $row['PC_name'] ." , " . $row['address'] .  "</td>";
-		//    	echo "<td>" . $row['fname'] . " " . $row['lname'] . "</td>";
-        //    // echo "<td>" . $row['Theatre_name'] . "," . $row['city'] . "</td>";
-        //    // echo "<td>" . $row['platform'] . "," . $row['url'] . "</td>";
-		// 	echo "</tr>";
-
-		// }
-		// echo "</table>";
 	    ?>
+
+        <h2 style="text-align: left; line-height: 25px">Add Review</h2>
+
+        <form class="add_review" method="post">
+            <input name="review" type="text" placeholder="Enter review">
+        </form>
+
+        <?php
+            if (isset($_POST['review'])) {
+                $review = $_POST['review'];
+                // check if review is clean
+                    // add into database
+            }
+        ?>
     </div>
 </body>
 </html>
