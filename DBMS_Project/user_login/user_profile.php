@@ -1,12 +1,10 @@
 <?php
-		if (isset($_GET['username'])) 
-		{ 
-			$username = $_GET['username'];
-		}
-		else
-		{
-			$username = ' ';
-		}
+session_start();
+if (isset($_GET['username'])) { 
+    $username = $_GET['username'];
+} else {
+    $username = ' ';
+}
 ?>
 		
 
@@ -81,5 +79,6 @@
         </form>
     </div>
 
-    <h2><?php echo $username; ?>'s Profile</h2>    
+    <h2><?php echo $username;?>'s Profile</h2>
 </body>
+</html>

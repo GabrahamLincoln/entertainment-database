@@ -1,3 +1,12 @@
+<?php
+$connection = mysqli_connect("localhost", "root", "","entertainment_db");
+		//check if connection was made properly or no
+		if(mysqli_connect_errno())
+		{
+			echo "Failed to connect: " . mysqli_connect_error();
+		}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,12 +43,6 @@
 	<h2>Current Entertainment information in the System</h2>
 	
 	<?php 
-		$connection = mysqli_connect("localhost", "root", "","entertainment_db");
-		//check if connection was made properly or no
-		if(mysqli_connect_errno())
-		{
-			echo "Failed to connect: " . mysqli_connect_error();
-		}
 		//echo "Connection made to database ";
 		//$result = mysqli_query($connection, "SELECT E.eid, E.name AS Ename, E.type, E.rating, E.date, PC.name AS PC_name, PC.address,D.ssn, D.fname, D.lname, AI.city_name AS city, AI.theatre_name as Theatre_name, AO.url AS url, P.name AS platform FROM entertainment AS E, productioncompany AS PC, director as D, available_in AS AI, available_on AS AO, Platform as P WHERE E.prod_pid = PC.pid AND E.dir_ssn = D.ssn AND AI.eid = E.eid AND AO.eid = E.eid AND P.url = AO.url");
         $result = mysqli_query($connection, "SELECT E.eid, E.name AS Ename, E.type, E.rating, E.date, PC.name AS PC_name, PC.address,D.ssn, D.fname, D.lname FROM entertainment AS E, productioncompany AS PC, director as D WHERE E.prod_pid = PC.pid AND E.dir_ssn = D.ssn ");

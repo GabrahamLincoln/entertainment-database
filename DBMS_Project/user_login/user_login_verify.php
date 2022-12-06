@@ -57,6 +57,9 @@ if (isset($_POST['uname']) && isset($_POST['password']))
         mysqli_close($connection);
         if($success)
         {
+            session_start();
+            $_SESSION['username']=$uname;
+
             //if here, username and password match, we can move ahead
             //move to next page and pass the username of the admin to the next page
             //https://www.sitepoint.com/community/t/passing-variables-using-header-location/4929

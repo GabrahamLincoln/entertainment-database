@@ -1,11 +1,10 @@
 <?php
+session_start();
 if (isset($_GET['username'])) { 
     $username = $_GET['username'];
 } else {
     $username = ' ';
 }
-
-$_SESSION['search'] = $_POST['search']
 ?>
 		
 
@@ -54,22 +53,7 @@ $_SESSION['search'] = $_POST['search']
         height: 50px;
         width: 350px;
         line-height: 50px;
-
-        text-align: left;
-        padding: 0px 20px;
-
-        border-radius: 7px;
-        color: rgb(255, 255, 255);
-        background: rgb(30, 30, 30);
-    }
-
-    .results_section {
-        height: 100vw;
-        width: 750px;
-        line-height: 15px;
-
-        text-align: left;
-        padding: 0px 20px;
+        text-align: center;
 
         border-radius: 7px;
         color: rgb(255, 255, 255);
@@ -89,20 +73,12 @@ $_SESSION['search'] = $_POST['search']
     <img src="../logo.png" alt="Logo", style="height:100px; width:350px; border-radius:5px">
 
     <div class = "search_bar">
-        <form action="search.php">
-		    <input type="text" name="uname" placeholder="Search the database">
+        <form action="search_results.php" method="post">
+            <!-- <input type="hidden" name="varname" value="var_value"> -->
+		    <input type="text" name="search" placeholder="Search the database">
         </form>
     </div>
 
-    <h2>Search: <?php echo $_SESSION['search'] ?></h2>
-    <h2>Results:</h2>
-
-    <div class = "results_section">
-        <?php echo '<br><a href="entertainment_page.php">Avengers</a> <br><br>';?>
-    </div>
-
+    <!-- <h2><?php echo $username;?>'s Profile</h2> -->
 </body>
-
-
-
-
+</html>
