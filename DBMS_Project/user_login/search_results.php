@@ -1,11 +1,6 @@
 <?php
-if (isset($_GET['username'])) { 
-    $username = $_GET['username'];
-} else {
-    $username = ' ';
-}
-
-$_SESSION['search'] = $_POST['search']
+session_start();
+$_SESSION['search'] = $_POST['search'];
 ?>
 		
 
@@ -81,7 +76,7 @@ $_SESSION['search'] = $_POST['search']
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Profile</title>
+	<title>Search Results</title>
 
 </head>
 
@@ -98,7 +93,12 @@ $_SESSION['search'] = $_POST['search']
     <h2>Results:</h2>
 
     <div class = "results_section">
-        <?php echo '<br><a href="entertainment_page.php">Avengers</a> <br><br>';?>
+        <?php
+        $eid = 1;
+        $link = "entertainment_page.php?eid=$eid";
+        $command = "<br><a href=$link>Avengers</a> <br><br>";
+        echo $command;
+        ?>
     </div>
 
 </body>

@@ -5,6 +5,7 @@ if (isset($_GET['username'])) {
 } else {
     $username = ' ';
 }
+$_SESSION['username'] = $username;
 ?>
 		
 
