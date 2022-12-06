@@ -75,11 +75,16 @@
     <img src="../logo.png" alt="Logo", style="height:100px; width:350px; border-radius:5px">
 
     <div class = "search_bar">
-        <form action="search_results.php" method="post">
-            <!-- <input type="hidden" name="varname" value="var_value"> -->
-		    <input type="text" name="search" placeholder="Search the database">
+        <form action="search.php">
+		    <input type="text" name="uname" placeholder="Search the database">
         </form>
     </div>
 
-    <h2><?php echo $username; ?>'s Profile</h2>    
+    <h2><?php echo $search; ?>'s Profile</h2>
+
+    
 </body>
+
+
+
+
