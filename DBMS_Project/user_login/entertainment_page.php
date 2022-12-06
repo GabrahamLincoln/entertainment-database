@@ -78,7 +78,5 @@ if (isset($_GET['username'])) {
 		    <input type="text" name="search" placeholder="Search the database">
         </form>
     </div>
-
-    <!-- <h2><?php echo $username;?>'s Profile</h2> -->
 </body>
 </html>
