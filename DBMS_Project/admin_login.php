@@ -6,7 +6,8 @@
 	<title>ADMIN LOGIN</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body style = "flex-direction: column">
+	<img src="logo.png" alt="Logo", style="height:100px; width:350px; margin:50px; border-radius:5px">
 	<form action="admin_login_verify.php" method="post">
 		<h2>Admin Login</h2>
 		<?php if (isset($_GET['error'])) { ?>

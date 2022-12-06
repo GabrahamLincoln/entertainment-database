@@ -7,19 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body style = "flex-direction: column">
-	<h2>Welcome to Entertainment Rating System </h2>
+	<img src="logo.png" alt="Logo", style="height:100px; width:350px; margin:50px; border-radius:5px">
 	<form style = "width: 200px" action="./user_login/user_login.php"  method="post">
-	<button style = "float:middle"  type="submit" action="./user_login/user_login.php">User Login Page
-	</button>	
-	</form>
-	
-	<form style = "width: 200px" action="admin_login.php"  method="post">
+	<button style = "float:middle"; type="submit"; action="./user_login/user_login.php"; >User Login Page</button>
 	<button type="submit">Admin Login Page</button>
-	</form>	
-
-	<form style = "width: 200px" action="newRegister.php"  method="post">
 	<button type="submit">Register New User</button>
-	</form>	
-	
 </body>
 </html>

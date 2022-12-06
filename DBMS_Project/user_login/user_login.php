@@ -6,7 +6,8 @@
 	<title>User Login Page</title>
 	<link rel="stylesheet" type="text/css" href="./../style.css">
 </head>
-<body>
+<body style = "flex-direction: column">
+	<img src="../logo.png" alt="Logo", style="height:100px; width:350px; margin:50px; border-radius:5px">
 	<form action="user_login_verify.php" method="post">
 		<h2>User Login</h2>
 		<?php if (isset($_GET['error'])) { ?>
