@@ -181,10 +181,10 @@ CREATE TABLE `director` (
 --
 -- Dumping data for table `director`
 --
-
 INSERT INTO `director` (`ssn`, `fname`, `lname`) VALUES
 ('123-123-1234', 'John', 'Doe_Director'),
 ('123-123-1265', 'John', 'Doe'),
+('123-123-1265342', 'Director', 'Demo'),
 ('123-123-1285', 'James', 'Director'),
 ('1234567', 'Director', 'Boy'),
 ('2131-123-123', 'Director', 'Test_manual');
@@ -216,6 +216,8 @@ INSERT INTO `entertainment` (`eid`, `name`, `type`, `rating`, `date`, `prod_pid`
 (12, 'The Test Movie', 'Sci-Fi', '5', '2022-11-18', 1234, '123-123-1234'),
 (7776, 'Fast and Furious', 'Fiction', '3', '2018-07-22', 1234, '123-123-1285'),
 (123456, 'Entertainmennt', 'Sci-Fi', '0', '2018-07-22', 1234, NULL);
+(435543, 'Fast and Furious Good', 'Action', '5', '2018-07-11', 99999, '123-123-1265342'),
+(787888, 'Fast and Furious Demo', 'Action', '3', '2018-07-22', 99999, '123-123-1265342');
 
 -- --------------------------------------------------------
 
@@ -324,15 +326,7 @@ INSERT INTO `user` (`Username`, `Password`, `Num_Reviews`, `Rating`) VALUES
 ('4352345', 'werwterwret', 0, 0),
 ('administrator', 'P@ssw0rd2', 5, 5),
 ('administrator234', 'P@ssw0rd2', 0, 2),
-('administrator4654', 'P@ssw0rd2', 0, 0),
-('administrator67676', 'P@ssw0rd2', 0, 0),
-('administratorafd', 'P@ssw0rd2', 0, 0),
-('administratorafdsasd', 'P@ssw0rd2', 0, 5),
-('administratordas', 'P@ssw0rd2', 0, 5),
-('newRegisterUser', 'P@ssw0rd7', 0, 0),
 ('newuser', 'asdfasdfasfad', 0, 0),
-('Simrat', 'P@ssword', 0, 0),
-('testUserManual', 'P@ssword', 3, 5),
 ('a', 'a', 0, 0),
 ('Jonah', 'password', 0, 0);
 
