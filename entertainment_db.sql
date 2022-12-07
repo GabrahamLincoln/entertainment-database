@@ -287,7 +287,9 @@ INSERT INTO `user` (`Username`, `Password`, `Num_Reviews`, `Rating`) VALUES
 ('administratordas', 'P@ssw0rd2', 0, 5),
 ('newRegisterUser', 'P@ssw0rd7', 0, 0),
 ('newuser', 'asdfasdfasfad', 0, 0),
-('Simrat', 'P@ssword', 0, 0);
+('Simrat', 'P@ssword', 0, 0),
+('a', 'a', 0, 0),
+('Jonah', 'password', 0, 0);
 
 --
 -- Indexes for dumped tables

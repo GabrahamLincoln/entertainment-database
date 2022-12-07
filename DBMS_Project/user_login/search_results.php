@@ -139,7 +139,7 @@ if (mysqli_connect_errno()) {
             echo "<br>Invalid characters used in search. Try again?";
         } else {
             $like = "%$search%";
-            $result = mysqli_query($connection, "SELECT E.eid, E.name FROM entertainment AS E WHERE E.name LIKE '$like'");
+            $result = mysqli_query($connection, "SELECT E.eid, E.name FROM entertainment AS E WHERE upper(E.name) LIKE upper('$like')");
 
             if (mysqli_num_rows($result) == 0) {
                 echo "<br>Your search yielded no result. Try again?";
