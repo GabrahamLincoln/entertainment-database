@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+$connection = mysqli_connect("localhost", "root", "","entertainment_db");
+//check if connection was made properly or no
+if (mysqli_connect_errno()) {
+	echo "Failed to connect: " . mysqli_connect_error();
+}
 ?>
 		
 
@@ -54,6 +60,16 @@ session_start();
         color: rgb(255, 255, 255);
         background: rgb(30, 30, 30);
     }
+
+    h1 {
+        font-size:20px;
+        line-height: 25px;
+        width: 350px;
+        text-align: left;
+        color: rgb(255, 255, 255);
+        border-radius: 7px;
+        background: rgb(30, 30, 30);
+    }
 </style>
 <html>
 
@@ -78,5 +94,24 @@ session_start();
     ?>
     
     <h2><?php echo $uname;?>'s Profile</h2>
+
+    <?php
+    $result = mysqli_query($connection, "SELECT COUNT(*) FROM reviews WHERE username = '$uname'");
+    ?>
+
+    <h2>Reviews Written: <?php echo mysqli_fetch_array($result)[0]?></h2>
+    
+    <h1>
+    <?php
+    $result = mysqli_query($connection, "SELECT e.name, e.eid, r.rating, r.comments FROM reviews r left join entertainment e on (r.eid = e.eid) WHERE r.username = '$uname'");
+    while($row = mysqli_fetch_array($result)) {
+        echo "Name: " . "<a href=entertainment_page.php?eid=$row[1]>$row[0]</a>" . "<br>";
+        echo "Rating: " . $row[2] . "<br>";
+        echo $row[3] . "<br><br>";
+    }
+    ?>
+    </h1>
+    
+
 </body>
 </html>
