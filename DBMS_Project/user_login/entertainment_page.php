@@ -101,11 +101,22 @@ if (mysqli_connect_errno()) {
         float: left;
         justify-content: center;
         align-items: center;
-        height: 100px;
+        height: 150px;
 
         background: rgb(70, 70, 70);
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2)
     }
+
+    button {
+    float: right;
+    background: rgba(55, 210, 160);
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-top: 15px;
+    border: none;
+}
 </style>
 
 <html>
@@ -148,9 +159,12 @@ if (mysqli_connect_errno()) {
         <h2 style="text-align: left; line-height: 25px">Information</h2>
 
         <?php
+        $result = mysqli_query($connection, "SELECT AVG(rating) FROM review AS R WHERE R.eid = '$eid'");
+        $rating = mysqli_fetch_array($result)[0];
+
         // Entertainment Columns: name, type, rating, date, prod_pid (producer id), dir_ssn (director ssn)
         $genre = $_SESSION['row']['type'];
-        $rating = $_SESSION['row']['rating'];
+        // $rating = $_SESSION['row']['rating'];
         $date = $_SESSION['row']['date'];
         $dir_fname = $_SESSION['row']['fname'];
         $dir_lname = $_SESSION['row']['lname'];
@@ -171,12 +185,21 @@ if (mysqli_connect_errno()) {
 
         <form class="add_review" method="post">
             <input name="review" type="text" placeholder="Enter review">
+            <input name="rating" type="number" min="1" max="5" placeholder="Enter rating" value="1">
+            <button type="submit">SUBMIT</button>
         </form>
+
+        <br>
+        <br>
+
+        <!-- <form class="add_rating" method="post">
+            <input name="rating" type="number" min="1" max="5" placeholder="Enter rating" value="1">
+        </form> -->
 
         <?php
             if (isset($_POST['review'])) {
                 $username = $_SESSION['username'];
-                // $rating = $_POST['rating'];
+                $rating = $_POST['rating'];
                 $comments = $_POST['review'];
                 $comments = str_replace("'", "\'", $comments);
                 $comments = str_replace('"', "\"", $comments);
@@ -189,7 +212,7 @@ if (mysqli_connect_errno()) {
                     echo "<br><br><br>You have already reviewed this piece of entertainment. Try another?";
                 } else {
 
-                    $query = "INSERT INTO  review (username, eid, rating, comments) VALUES ('$username', $eid, 5, '$comments')";
+                    $query = "INSERT INTO  review (username, eid, rating, comments) VALUES ('$username', $eid, $rating, '$comments')";
 
                     try {
                         mysqli_query($connection, $query);
