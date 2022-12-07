@@ -135,7 +135,11 @@ if (mysqli_connect_errno()) {
         <?php
         $result = mysqli_query($connection, "SELECT * FROM entertainment AS E, productioncompany AS P, director AS D WHERE E.eid = $eid AND D.ssn = E.dir_ssn AND P.pid = E.prod_pid");
         $row = mysqli_fetch_array($result);
-        echo $row['name'];
+
+        $ename_result = mysqli_query($connection, "SELECT * FROM entertainment AS E WHERE E.eid = $eid");
+        $ename_row = mysqli_fetch_array($ename_result);
+
+        echo $ename_row['name'];
         $_SESSION['row'] = $row
         ?>
     </h2>
@@ -201,20 +205,14 @@ if (mysqli_connect_errno()) {
         
         <!-- query current reviews for $eid -->
         <?php
-        // $result = mysqli_query($connection, "SELECT * FROM review AS R WHERE E.eid = $eid");
-        $result = mysqli_query($connection, "SELECT R.username, R.rating, R.comments FROM review AS R LEFT JOIN entertainment AS E ON (R.eid = E.eid)");
+        $result = mysqli_query($connection, "SELECT * FROM entertainment as E, review AS R WHERE E.eid = '$eid' AND R.eid = E.eid");
 
         if (mysqli_num_rows($result) == 0) {
             echo "<br>This piece of entertainment currently has no reviews. Write one?";
         } else {
             while ($row = mysqli_fetch_array($result)) {
-                // $name = $row['name'];
-                // $eid = $row['eid'];
-                // $link = "entertainment_page.php?eid=$eid";
-                // $command = "<br><a href=$link>$name</a> <br>";
-                // echo $command;
-                // echo "<br>";
-                echo "User: " . $row['username'] . "<br>";
+                // echo "User: " . $row['username'] . "<br>";
+                echo "User: " . "<a href=user_profile.php?visiting=$row[7]>$row[7]</a>" . "<br>";
                 echo "Rating: " . $row['rating'] . "<br>";
                 echo $row['comments'] . "<br><br>";
             }

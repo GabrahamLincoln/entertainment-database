@@ -69,6 +69,7 @@ if (mysqli_connect_errno()) {
         color: rgb(255, 255, 255);
         border-radius: 7px;
         background: rgb(30, 30, 30);
+        padding: 20px;
     }
 </style>
 <html>
@@ -90,20 +91,24 @@ if (mysqli_connect_errno()) {
     </div>
 
     <?php
-        $uname = $_SESSION['username']
+        if (isset($_GET['visiting'])) {
+            $uname = $_GET['visiting'];
+        } else {
+            $uname = $_SESSION['username'];
+        }
     ?>
     
     <h2><?php echo $uname;?>'s Profile</h2>
 
     <?php
-    $result = mysqli_query($connection, "SELECT COUNT(*) FROM reviews WHERE username = '$uname'");
+    $result = mysqli_query($connection, "SELECT COUNT(*) FROM review AS R WHERE R.username = '$uname'");
     ?>
 
     <h2>Reviews Written: <?php echo mysqli_fetch_array($result)[0]?></h2>
     
     <h1>
     <?php
-    $result = mysqli_query($connection, "SELECT e.name, e.eid, r.rating, r.comments FROM reviews r left join entertainment e on (r.eid = e.eid) WHERE r.username = '$uname'");
+    $result = mysqli_query($connection, "SELECT e.name, e.eid, r.rating, r.comments FROM review r left join entertainment e on (r.eid = e.eid) WHERE r.username = '$uname'");
     while($row = mysqli_fetch_array($result)) {
         echo "Name: " . "<a href=entertainment_page.php?eid=$row[1]>$row[0]</a>" . "<br>";
         echo "Rating: " . $row[2] . "<br>";
