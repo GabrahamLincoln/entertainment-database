@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2022 at 06:00 PM
+-- Generation Time: Nov 27, 2022 at 01:28 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `entertainment_db`
 --
-CREATE DATABASE IF NOT EXISTS `entertainment_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `entertainment_db`;
 
 -- --------------------------------------------------------
 
@@ -29,8 +27,8 @@ USE `entertainment_db`;
 -- Table structure for table `actor`
 --
 
-CREATE TABLE `actor` (
-  `ssn` varchar(12) NOT NULL,
+CREATE TABLE `crew` (
+  `crew_id` varchar(12) NOT NULL,
   `fname` varchar(15) NOT NULL,
   `lname` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -39,12 +37,11 @@ CREATE TABLE `actor` (
 -- Dumping data for table `actor`
 --
 
-INSERT INTO `actor` (`ssn`, `fname`, `lname`) VALUES
-('1234', 'John', 'Doe'),
-('1234-123-789', 'Test', 'Actor2'),
-('345234563626', 'Test', 'actor'),
-('435234523453', 'new', 'actor'),
-('456-456-4563', 'Bruce', 'Wayne');
+INSERT INTO `crew` (`crew_id`, `fname`, `lname`) VALUES
+('1', 'John', 'Doe'),
+('2', 'Jane', 'Doe'),
+('3', 'Jim', 'Doe'),
+('4', 'Jenny', 'Doe');
 
 -- --------------------------------------------------------
 
@@ -52,28 +49,27 @@ INSERT INTO `actor` (`ssn`, `fname`, `lname`) VALUES
 -- Table structure for table `acts_in`
 --
 
-CREATE TABLE `acts_in` (
-  `actor_ssn` varchar(12) NOT NULL,
+CREATE TABLE `works_on` (
+  `crew_id` varchar(12) NOT NULL,
   `entertainment_eid` int(5) NOT NULL
+  `job` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `acts_in`
 --
 
-INSERT INTO `acts_in` (`actor_ssn`, `entertainment_eid`) VALUES
-('1234', 7),
-('1234-123-789', 7),
-('456-456-4563', 1),
-('456-456-4563', 1),
-('456-456-4563', 1),
-('456-456-4563', 1),
-('456-456-4563', 1),
-('456-456-4563', 1),
-('456-456-4563', 1),
-('456-456-4563', 1),
-('1234', 1);
-
+INSERT INTO `works_on` (`crew_id`, `entertainment_eid`, `job`) VALUES
+('1', '1', 'Actor'),
+('1', '2', 'Actor'),
+('1', '3', 'Actor'),
+('1', '4', 'Actor'),
+('2', '1', 'Actor'),
+('2', '2', 'Actor'),
+('3', '1', 'Actor'),
+('3', '2', 'Actor'),
+('1', '1', 'Director'),
+('1', '2', 'Director'),
 -- --------------------------------------------------------
 
 --
@@ -112,11 +108,7 @@ CREATE TABLE `available_in` (
 INSERT INTO `available_in` (`eid`, `city_name`, `theatre_name`) VALUES
 (1, 'Calgary', 'Chinook'),
 (7, 'Calgary', 'Chinook'),
-(7776, 'Calgary', 'Chinook'),
-(1, 'Calgay', 'Market_Mall'),
-(7776, 'Calgay', 'Market_Mall'),
-(1, 'Edmonton', 'Theater_edm_2'),
-(0, '', 'University');
+(1, 'Calgay', 'Market_Mall');
 
 -- --------------------------------------------------------
 
@@ -138,8 +130,7 @@ INSERT INTO `available_on` (`eid`, `url`) VALUES
 (1, 'www.hotStar.com'),
 (1, 'www.netflix.com'),
 (7, 'www.youtube.com'),
-(7, 'www.amazonPrime.com'),
-(7776, 'www.amazonPrime.com');
+(7, 'www.amazonPrime.com');
 
 -- --------------------------------------------------------
 
@@ -184,10 +175,9 @@ CREATE TABLE `director` (
 
 INSERT INTO `director` (`ssn`, `fname`, `lname`) VALUES
 ('123-123-1234', 'John', 'Doe_Director'),
-('123-123-1265', 'John', 'Doe'),
-('123-123-1285', 'James', 'Director'),
+('123451234567', 'director2', 'last2'),
 ('1234567', 'Director', 'Boy'),
-('2131-123-123', 'Director', 'Test_manual');
+('123456789009', 'director1', 'last1');
 
 -- --------------------------------------------------------
 
@@ -201,8 +191,8 @@ CREATE TABLE `entertainment` (
   `type` varchar(20) NOT NULL DEFAULT '''no type''',
   `rating` decimal(5,0) NOT NULL DEFAULT 0,
   `date` date NOT NULL DEFAULT current_timestamp(),
-  `prod_pid` int(5) DEFAULT NULL,
-  `dir_ssn` varchar(15) DEFAULT NULL
+  `prod_pid` int(5) NOT NULL,
+  `dir_ssn` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -210,12 +200,11 @@ CREATE TABLE `entertainment` (
 --
 
 INSERT INTO `entertainment` (`eid`, `name`, `type`, `rating`, `date`, `prod_pid`, `dir_ssn`) VALUES
-(1, 'The Invincible', 'Sci-Fi', '0', '2018-07-22', 1234, '1234567'),
-(2, 'The invi', 'Sci-Fi', '5', '2018-07-22', 1234, '1234567'),
-(7, 'James Bond', 'tye', '3', '2022-11-18', 1234, '123-123-1234'),
-(12, 'The Test Movie', 'Sci-Fi', '5', '2022-11-18', 1234, '123-123-1234'),
-(7776, 'Fast and Furious', 'Fiction', '3', '2018-07-22', 1234, '123-123-1285'),
-(123456, 'Entertainmennt', 'Sci-Fi', '0', '2018-07-22', 1234, NULL);
+(1, 'James Bond', 'Movie', '0', '2016-07-22', 1, '1234567'),
+(2, 'Avengers', 'Movie', '0', '2020-12-22', 1, '1234567'),
+(3, 'James Bond', '', '0', '2022-11-18', 1234, '123-123-1234'),
+(4, 'The Test Movie', 'test', '0', '2022-11-18', 1234, '123-123-1234'),
+(5, 'Test', 'Sci-Fi', '5', '2018-07-22', 1234, '123451234567');
 
 -- --------------------------------------------------------
 
@@ -233,10 +222,8 @@ CREATE TABLE `hires` (
 --
 
 INSERT INTO `hires` (`prod_pid`, `director_ssn`) VALUES
-(1234, '123-123-1234'),
-(1234, '123-123-1234'),
-(99999, '1234567'),
-(1234, '123-123-1285');
+(1234, '1234567'),
+(1234, '123451234567');
 
 -- --------------------------------------------------------
 
@@ -277,31 +264,9 @@ CREATE TABLE `productioncompany` (
 
 INSERT INTO `productioncompany` (`pid`, `name`, `address`) VALUES
 (1234, 'The Production Company', 'Calgary'),
-(99999, 'The Test Production Company', 'Calgary'),
 (123456, 'qwerty', 'qwert'),
 (3243432, 'the orod c', 'dfsg'),
 (2147483647, 'delete', 'this');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reviews`
---
-
-CREATE TABLE `reviews` (
-  `username` varchar(30) NOT NULL,
-  `eid` int(5) NOT NULL,
-  `rating` int(5) NOT NULL,
-  `comments` varchar(100)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `productioncompany`
---
-
-INSERT INTO `reviews` (`username`, `eid`, `rating`, `comments`) VALUES
-('Jonah', 1, 1, 'A little derivative.'),
-('Jonah', 7, 5, 'Amazing!');
 
 -- --------------------------------------------------------
 
@@ -326,15 +291,10 @@ INSERT INTO `user` (`Username`, `Password`, `Num_Reviews`, `Rating`) VALUES
 ('administrator234', 'P@ssw0rd2', 0, 2),
 ('administrator4654', 'P@ssw0rd2', 0, 0),
 ('administrator67676', 'P@ssw0rd2', 0, 0),
-('administratorafd', 'P@ssw0rd2', 0, 0),
-('administratorafdsasd', 'P@ssw0rd2', 0, 5),
 ('administratordas', 'P@ssw0rd2', 0, 5),
 ('newRegisterUser', 'P@ssw0rd7', 0, 0),
 ('newuser', 'asdfasdfasfad', 0, 0),
-('Simrat', 'P@ssword', 0, 0),
-('testUserManual', 'P@ssword', 3, 5),
-('a', 'a', 0, 0),
-('Jonah', 'password', 0, 0);
+('Simrat', 'P@ssword', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -396,8 +356,8 @@ ALTER TABLE `entertainment`
 -- Indexes for table `hires`
 --
 ALTER TABLE `hires`
-  ADD KEY `fkey_prodPID` (`prod_pid`) USING BTREE,
-  ADD KEY `fkey_directorSSN` (`director_ssn`);
+  ADD KEY `fkey_directorSSN` (`director_ssn`),
+  ADD KEY `fkey_prodPID` (`prod_pid`) USING BTREE;
 
 --
 -- Indexes for table `platform`
@@ -425,8 +385,8 @@ ALTER TABLE `user`
 -- Constraints for table `acts_in`
 --
 ALTER TABLE `acts_in`
-  ADD CONSTRAINT `fkey_actor` FOREIGN KEY (`actor_ssn`) REFERENCES `actor` (`ssn`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkey_entertainment` FOREIGN KEY (`entertainment_eid`) REFERENCES `entertainment` (`eid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkey_actor` FOREIGN KEY (`actor_ssn`) REFERENCES `actor` (`ssn`),
+  ADD CONSTRAINT `fkey_entertainment` FOREIGN KEY (`entertainment_eid`) REFERENCES `entertainment` (`eid`);
 
 --
 -- Constraints for table `available_on`
@@ -439,15 +399,15 @@ ALTER TABLE `available_on`
 -- Constraints for table `entertainment`
 --
 ALTER TABLE `entertainment`
-  ADD CONSTRAINT `fkey_dir_ssn` FOREIGN KEY (`dir_ssn`) REFERENCES `director` (`ssn`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fkey_prod_pid` FOREIGN KEY (`prod_pid`) REFERENCES `productioncompany` (`pid`) ON DELETE SET NULL;
+  ADD CONSTRAINT `fkey_dir_ssn` FOREIGN KEY (`dir_ssn`) REFERENCES `director` (`ssn`),
+  ADD CONSTRAINT `fkey_prod_pid` FOREIGN KEY (`prod_pid`) REFERENCES `productioncompany` (`pid`);
 
 --
 -- Constraints for table `hires`
 --
 ALTER TABLE `hires`
-  ADD CONSTRAINT `fkey_directorSSN` FOREIGN KEY (`director_ssn`) REFERENCES `director` (`ssn`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fkey_prodPID` FOREIGN KEY (`prod_pid`) REFERENCES `productioncompany` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fkey_directorSSN` FOREIGN KEY (`director_ssn`) REFERENCES `director` (`ssn`),
+  ADD CONSTRAINT `fkey_prodPID` FOREIGN KEY (`prod_pid`) REFERENCES `productioncompany` (`pid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
