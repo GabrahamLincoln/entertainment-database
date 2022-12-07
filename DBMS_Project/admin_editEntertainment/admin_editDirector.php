@@ -119,7 +119,7 @@
 				else if(str_contains($newlname, ';')|| (str_contains ($newlname, '=')) || str_contains($newlname, '\\') ||  str_contains($newlname, ' ') || str_contains($newlname, '-'))
 				{
 					echo "<p class = \"error\">";
-					echo "Invalid characters in Password, try again<br>";
+					echo "Invalid characters in Last Name, try again<br>";
 					echo "</p>";
 				}
                 else if(str_contains($newSSN, ';')|| (str_contains ($newSSN, '=')) || str_contains($newSSN, '\\') ||  str_contains($newSSN, ' ') || str_contains($newSSN, '--'))
