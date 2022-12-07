@@ -21,7 +21,7 @@
 
 	<p></p>
 
-	<form style = "height:130px; width: 180px" action="newRegister.php"  method="post">
+	<form style = "height:130px; width: 180px" action="new_user.php"  method="post">
 	<button type="submit">Register New User</button>
 	</form>	
 	

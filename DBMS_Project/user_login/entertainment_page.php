@@ -133,7 +133,7 @@ if (mysqli_connect_errno()) {
     
     <h2>
         <?php
-        $result = mysqli_query($connection, "SELECT * FROM entertainment AS E WHERE E.eid = $eid");
+        $result = mysqli_query($connection, "SELECT * FROM entertainment AS E, productioncompany AS P, director AS D WHERE E.eid = $eid AND D.ssn = E.dir_ssn AND P.pid = E.prod_pid");
         $row = mysqli_fetch_array($result);
         echo $row['name'];
         $_SESSION['row'] = $row
@@ -148,8 +148,9 @@ if (mysqli_connect_errno()) {
         $genre = $_SESSION['row']['type'];
         $rating = $_SESSION['row']['rating'];
         $date = $_SESSION['row']['date'];
-        $producer_id = $_SESSION['row']['prod_pid'];
-        $director_id = $_SESSION['row']['dir_ssn'];
+        $dir_fname = $_SESSION['row']['fname'];
+        $dir_lname = $_SESSION['row']['lname'];
+        $prod_company = $_SESSION['row']['name'];
         
         echo "Genre: $genre";
         echo "<br>";
@@ -157,6 +158,9 @@ if (mysqli_connect_errno()) {
         echo "<br>";
         echo "Rating: $rating/5";
         echo "<br>";
+        echo "Director: $dir_fname $dir_lname";
+        echo "<br>";
+        echo "Produced By: $prod_company";
 	    ?>
 
         <h2 style="text-align: left; line-height: 25px">Add Review</h2>
@@ -167,10 +171,54 @@ if (mysqli_connect_errno()) {
 
         <?php
             if (isset($_POST['review'])) {
-                $review = $_POST['review'];
-                // check if review is clean
-                    // add into database
+                $username = $_SESSION['username'];
+                // $rating = $_POST['rating'];
+                $comments = $_POST['review'];
+                $comments = str_replace("'", "\'", $comments);
+                $comments = str_replace('"', "\"", $comments);
+
+                $existing_reviews = mysqli_query($connection, "SELECT * FROM review AS R WHERE R.username = '$username' AND R.eid = '$eid'");
+
+                if (str_contains($comments, ';') || str_contains($comments, '=') || str_contains($comments, '-') ||  str_contains($comments, '\\') ) {
+                    echo "<br><br><br>Invalid characters used in review. Try again?";
+                } elseif (mysqli_num_rows($existing_reviews) > 0) {
+                    echo "<br><br><br>You have already reviewed this piece of entertainment. Try another?";
+                } else {
+
+                    $query = "INSERT INTO  review (username, eid, rating, comments) VALUES ('$username', $eid, 5, '$comments')";
+
+                    try {
+                        mysqli_query($connection, $query);
+                    } catch (Exception $e) {
+                        echo "Could not add review. Please try again. $e";
+                    }
+                }
             }
+        ?>
+
+        <?php echo "<br><br><br>" ?>
+        <h2 style="text-align: left; line-height: 25px">Reviews</h2>
+        
+        <!-- query current reviews for $eid -->
+        <?php
+        // $result = mysqli_query($connection, "SELECT * FROM review AS R WHERE E.eid = $eid");
+        $result = mysqli_query($connection, "SELECT R.username, R.rating, R.comments FROM review AS R LEFT JOIN entertainment AS E ON (R.eid = E.eid)");
+
+        if (mysqli_num_rows($result) == 0) {
+            echo "<br>This piece of entertainment currently has no reviews. Write one?";
+        } else {
+            while ($row = mysqli_fetch_array($result)) {
+                // $name = $row['name'];
+                // $eid = $row['eid'];
+                // $link = "entertainment_page.php?eid=$eid";
+                // $command = "<br><a href=$link>$name</a> <br>";
+                // echo $command;
+                // echo "<br>";
+                echo "User: " . $row['username'] . "<br>";
+                echo "Rating: " . $row['rating'] . "<br>";
+                echo $row['comments'] . "<br><br>";
+            }
+        }
         ?>
     </div>
 </body>

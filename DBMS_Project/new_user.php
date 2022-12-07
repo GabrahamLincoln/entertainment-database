@@ -59,13 +59,14 @@
 
 			//https://www.geeksforgeeks.org/php-strlen-function/
 			//https://www.w3schools.com/php/func_var_empty.asp
-			if (empty($newUser) || empty($newPass) || (strlen($newUser) < 7) || (strlen($newPass) < 7))
+			if (empty($newUser) || empty($newPass))
 			{
 				echo "<p class = \"error\">";
 				echo "Please enter both username and password.</p>";
-			}
-			else
-			{
+			} elseif (strlen($newPass) < 7) {
+				echo "<p class = \"error\">";
+				echo "Password must be at least 7 characters long.";
+			} else {
 				//https://www.php.net/manual/en/function.str-contains.php
 				//should be good to prevent SQL injections
 				//check for ;  =  -  ' '  \
