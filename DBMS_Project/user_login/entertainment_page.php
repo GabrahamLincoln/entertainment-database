@@ -159,7 +159,7 @@ if (mysqli_connect_errno()) {
         <h2 style="text-align: left; line-height: 25px">Information</h2>
 
         <?php
-        $result = mysqli_query($connection, "SELECT AVG(rating) FROM review AS R WHERE R.eid = '$eid'");
+        $result = mysqli_query($connection, "SELECT AVG(rating) FROM reviews AS R WHERE R.eid = '$eid'");
         $rating = mysqli_fetch_array($result)[0];
 
         // Entertainment Columns: name, type, rating, date, prod_pid (producer id), dir_ssn (director ssn)
@@ -204,7 +204,7 @@ if (mysqli_connect_errno()) {
                 $comments = str_replace("'", "\'", $comments);
                 $comments = str_replace('"', "\"", $comments);
 
-                $existing_reviews = mysqli_query($connection, "SELECT * FROM review AS R WHERE R.username = '$username' AND R.eid = '$eid'");
+                $existing_reviews = mysqli_query($connection, "SELECT * FROM reviews AS R WHERE R.username = '$username' AND R.eid = '$eid'");
 
                 if (str_contains($comments, ';') || str_contains($comments, '=') || str_contains($comments, '-') ||  str_contains($comments, '\\') ) {
                     echo "<br><br><br>Invalid characters used in review. Try again?";
@@ -212,7 +212,7 @@ if (mysqli_connect_errno()) {
                     echo "<br><br><br>You have already reviewed this piece of entertainment. Try another?";
                 } else {
 
-                    $query = "INSERT INTO  review (username, eid, rating, comments) VALUES ('$username', $eid, $rating, '$comments')";
+                    $query = "INSERT INTO  reviews (username, eid, rating, comments) VALUES ('$username', $eid, $rating, '$comments')";
 
                     try {
                         mysqli_query($connection, $query);
@@ -228,7 +228,7 @@ if (mysqli_connect_errno()) {
         
         <!-- query current reviews for $eid -->
         <?php
-        $result = mysqli_query($connection, "SELECT * FROM entertainment as E, review AS R WHERE E.eid = '$eid' AND R.eid = E.eid");
+        $result = mysqli_query($connection, "SELECT * FROM entertainment as E, reviews AS R WHERE E.eid = '$eid' AND R.eid = E.eid");
 
         if (mysqli_num_rows($result) == 0) {
             echo "<br>This piece of entertainment currently has no reviews. Write one?";
@@ -242,5 +242,6 @@ if (mysqli_connect_errno()) {
         }
         ?>
     </div>
+    <a href="./../index.php">Link to Main Page</a>
 </body>
 </html>

@@ -101,14 +101,14 @@ if (mysqli_connect_errno()) {
     <h2><?php echo $uname;?>'s Profile</h2>
 
     <?php
-    $result = mysqli_query($connection, "SELECT COUNT(*) FROM review AS R WHERE R.username = '$uname'");
+    $result = mysqli_query($connection, "SELECT COUNT(*) FROM reviews AS R WHERE R.username = '$uname'");
     ?>
 
     <h2>Reviews Written: <?php echo mysqli_fetch_array($result)[0]?></h2>
     
     <h1>
     <?php
-    $result = mysqli_query($connection, "SELECT e.name, e.eid, r.rating, r.comments FROM review r left join entertainment e on (r.eid = e.eid) WHERE r.username = '$uname'");
+    $result = mysqli_query($connection, "SELECT e.name, e.eid, r.rating, r.comments FROM reviews r left join entertainment e on (r.eid = e.eid) WHERE r.username = '$uname'");
     while($row = mysqli_fetch_array($result)) {
         echo "Name: " . "<a href=entertainment_page.php?eid=$row[1]>$row[0]</a>" . "<br>";
         echo "Rating: " . $row[2] . "<br>";
@@ -117,6 +117,6 @@ if (mysqli_connect_errno()) {
     ?>
     </h1>
     
-
+    <a href="./../index.php">Link to Main Page</a>
 </body>
 </html>
